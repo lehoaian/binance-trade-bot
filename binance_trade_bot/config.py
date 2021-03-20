@@ -18,6 +18,7 @@ class Config:  # pylint: disable=too-few-public-methods
             "scout_sleep_time": "5",
             "hourToKeepScoutHistory": "1",
             "tld": "com",
+            "trade_fee": "auto",
         }
 
         if not os.path.exists(CFG_FL_NAME):
@@ -51,6 +52,9 @@ class Config:  # pylint: disable=too-few-public-methods
         supported_coin_list = [
             coin.strip() for coin in os.environ.get("SUPPORTED_COIN_LIST", "").split() if coin.strip()
         ]
+
+        self.TRADE_FEE = os.environ.get("TRADE_FEE") or config.get(USER_CFG_SECTION, "trade_fee")
+
         # Get supported coin list from supported_coin_list file
         if not supported_coin_list and os.path.exists("supported_coin_list"):
             with open("supported_coin_list") as rfh:
